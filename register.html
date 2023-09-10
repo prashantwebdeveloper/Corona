@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Corona Admin</title>
+    <!-- plugins:css -->
+    <link rel="stylesheet" href="assets/vendors/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="assets/vendors/css/vendor.bundle.base.css">
+    <!-- endinject -->
+    <!-- Plugin css for this page -->
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <!-- endinject -->
+    <!-- Layout styles -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <!-- End layout styles -->
+    <link rel="shortcut icon" href="assets/images/favicon.png" />
+  </head>
+
+  <style>
+      .liti{
+        position: relative;
+      }
+      .liti:before, .liti:after{
+        content: "";
+        position: absolute;
+        top: 10px;
+        height: 1px;
+        width: 110%;
+        background-color: #b6bdc8;
+      }
+      .liti:before{
+        left: -130px;
+      }
+      .liti:after{
+        left: 120px;
+      }
+  </style>
+
+  <body>
+    <div class="container-scroller">
+      <div class="container-fluid page-body-wrapper full-page-wrapper">
+        <div class="row w-100 m-0">
+          <div class="content-wrapper full-page-wrapper d-flex align-items-center auth login-bg">
+            <div class="card col-lg-4 mx-auto">
+              <div class="card-body px-5 py-5">
+                <h3 class="card-title text-left mb-3">Register</h3>
+
+                
+                <div id="error">
+                </div>
+
+                <form>
+                  <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" id="name" class="form-control p_input">
+                  </div>
+
+                  <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="email" class="form-control p_input">
+                  </div>
+
+                  <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="password" class="form-control p_input">
+                  </div>
+
+                  <div class="form-group">
+                    <label>Confirm Password</label>
+                    <input type="password" id="cpassword" class="form-control p_input">
+                  </div>
+
+                  <div class="form-group d-flex align-items-center justify-content-between">
+                    <a href="login.html" class="btn col-4 mr-2" style="height: 1.9rem; background-color: #308609;">Login </a>
+                  </div>
+
+                  <div class="text-center">
+                    <a type="button" onclick="signup()" class="btn btn-primary btn-block enter-btn mb-3 p-3" style="height: 2.9rem;">Sign Up</a>
+                  </div>
+
+                  <div class="text-center mb-3">
+                    <span class="liti" style="font-size: 15px; cursor: auto; color: #b6bdc8;">or register with</span>
+                  </div>
+
+                  <div class="d-flex">
+                    <button class="btn btn-facebook col mr-2">
+                      <i class="mdi mdi-facebook"></i> Facebook </button>
+                    <button class="btn btn-google col">
+                      <i class="mdi mdi-google-plus"></i> Google plus </button>
+                  </div>
+                  
+                </form>
+              </div>
+            </div>
+          </div>
+          <!-- content-wrapper ends -->
+        </div>
+        <!-- row ends -->
+      </div>
+      <!-- page-body-wrapper ends -->
+    </div>
+    <!-- container-scroller -->
+    <!-- plugins:js -->
+    <script src="assets/vendors/js/vendor.bundle.base.js"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page -->
+    <!-- End plugin js for this page -->
+    <!-- inject:js -->
+    <script src="assets/js/off-canvas.js"></script>
+    <script src="assets/js/hoverable-collapse.js"></script>
+    <script src="assets/js/misc.js"></script>
+    <script src="assets/js/settings.js"></script>
+    <script src="assets/js/todolist.js"></script>
+    <!-- endinject -->
+  </body>
+
+  <script type="text/javascript">
+
+    let obj= [];
+
+    let signup = () =>{
+
+      let name= document.getElementById('name').value;
+      let email= document.getElementById('email').value;
+      let password= document.getElementById('password').value;
+      let cpassword= document.getElementById('cpassword').value;
+
+      if(password== cpassword)
+      {
+        let add= {
+          uniqid: Math.floor(Math.random() * 100000),
+          name: name,
+          email: email,
+          password: password,
+          image: "image/deafualt.jpeg",
+        };
+
+        if(localStorage.getItem('Register')=== null || localStorage.getItem('Register')=== undefined)
+        {
+            obj.push(add);
+            localStorage.setItem('Register',JSON.stringify(obj));
+
+            let msg= `
+                      <div class="alert" style="background-color: #fff; color: #4caf50; font-size: 15px;" role="alert">
+                        User successfully register
+                      </div>
+                     `
+            document.getElementById('error').innerHTML= msg;
+        }
+        else{
+            let ad= JSON.parse(localStorage.getItem('Register'));
+
+            ad.push(add);
+            localStorage.setItem('Register',JSON.stringify(ad));
+
+            let msg= `
+                      <div class="alert" style="background-color: #fff; color: #4caf50; font-size: 15px;" role="alert">
+                        User successfully register
+                      </div>
+                     `
+            document.getElementById('error').innerHTML= msg;
+        }
+
+        document.getElementById('name').value= "";
+        document.getElementById('email').value= "";
+        document.getElementById('password').value= "";
+        document.getElementById('cpassword').value= "";
+      }
+      else{
+        let msg= `
+                  <div class="alert text-danger" style="background-color: #fff; font-size: 15px;" role="alert">
+                    Password and Confirm Password are not same Please enter same password
+                  </div>
+                 `  
+        document.getElementById('error').innerHTML= msg;
+      }
+    }
+
+  </script>
+</html>
